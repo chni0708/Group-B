@@ -1,9 +1,10 @@
-let colors = [];
+let colors = []; 
 let bigCircles = [];
 let smallStrokeCircles = [];
 let kpatternColors = [];
 let kCircle = [];
-  
+let whiteDotLayers = [];
+let yellowDotLayers = [];
 function setup() {
     createCanvas(windowWidth, windowHeight);
   
@@ -92,7 +93,20 @@ function setup() {
     new SmallStrokeCircle(bigCircles[1], r * 0.4, null, color('#F05641'), 10, false, true), //  circle 2
    
     ];
+    whiteDotLayers = [
+      new WhiteDotLayers(bigCircles[2], 3, 18),
+      new WhiteDotLayers(bigCircles[4], 3, 18),
+      new WhiteDotLayers(bigCircles[9], 3, 12),
+      new WhiteDotLayers(bigCircles[0], 3, 12),
+      new WhiteDotLayers(bigCircles[14], 3, 12)
+    ]
+   yellowDotLayers = [
+      new YellowDotLayers(bigCircles[1], 3, 16),
+      new YellowDotLayers(bigCircles[10], 3, 16),
+      new YellowDotLayers(bigCircles[12], 3, 16),]
+    
   }
+  
 
 //set up the class of the big circle
 class Circle {
@@ -199,8 +213,53 @@ drawDashedCircle(x, y, diameter) {
     }
 }
 }
+// White dot layers class
+class WhiteDotLayers {
+  constructor(bigCircle, numLayers, numDots) {
+    this.bigCircle = bigCircle;
+    this.numLayers = numLayers;
+    this.numDots = numDots;
+  }
+  display() {
+    let x = width * this.bigCircle.xScale;
+    let y = height * this.bigCircle.yScale;
+    for (let layer = 1; layer <= this.numLayers; layer++) {
+      let radius = 100 + (layer * 45);
+      for (let i = 0; i < this.numDots; i++) {
+        let angle = TWO_PI / this.numDots * i;
+        let dotX = x + radius * cos(angle);
+        let dotY = y + radius * sin(angle);
+        fill(255);
+        noStroke();
+        ellipse(dotX, dotY, 25);
+      }
+    }
+  }
+}
+// Yellow dot layers class
+class YellowDotLayers {
+  constructor(bigCircle, numLayers, numDots) {
+    this.bigCircle = bigCircle;
+    this.numLayers = numLayers;
+    this.numDots = numDots;
+  }
 
-
+  display() {
+    let x = width * this.bigCircle.xScale;
+    let y = height * this.bigCircle.yScale;
+    fill('#fabd4d');
+    noStroke();
+    for (let layer = 1; layer <= this.numLayers; layer++) {
+      let radius = 100 + (layer * 45);
+      for (let i = 0; i < this.numDots; i++) {
+        let angle = TWO_PI / this.numDots * i;
+        let dotX = x + radius * cos(angle);
+        let dotY = y + radius * sin(angle);
+        ellipse(dotX, dotY, 20);
+      }
+    }
+  }
+}
 
 function draw() {
   background(255);
@@ -214,12 +273,17 @@ function draw() {
   for(let kcircles of kCircle){
     kcircles.display();
   }
-
+  for (let dotLayer of whiteDotLayers){ dotLayer.display();
+  }
+  // Draw yellow dot layers
+  for (let dotLayer of yellowDotLayers) {dotLayer.display();
+  }
   // Draw small stroke circles on top
   for (let smallCircle of smallStrokeCircles) {
     smallCircle.draw();
   }
 }
+
   
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
