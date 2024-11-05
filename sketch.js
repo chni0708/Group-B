@@ -3,10 +3,11 @@ let bigCircles = [];
 let smallStrokeCircles = [];
 let kpatternColors = [];
 let kCircle = [];
-let whiteDotLayers = [];
-let yellowDotLayers = [];
+
 
 let concentricCircles = []; // Array to store concentric circles
+let whiteDotLayers = [];
+let yellowDotLayers = [];
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
