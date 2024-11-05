@@ -5,9 +5,13 @@ let kpatternColors = [];
 let kCircle = [];
 let whiteDotLayers = [];
 let yellowDotLayers = [];
+
+let concentricCircles = []; // Array to store concentric circles
+
 function setup() {
     createCanvas(windowWidth, windowHeight);
   
+    
   //color array  
   colors = [
     color('#242062'),//1 a
@@ -74,7 +78,6 @@ function setup() {
     new kCircles(bigCircles[13].xScale, bigCircles[13].yScale, r, kpatternColors[4]),
     new kCircles(bigCircles[15].xScale, bigCircles[15].yScale, r, kpatternColors[5])
     ]
-
 
     // Small strke circles with specified colors and locations
     smallStrokeCircles = [
@@ -243,6 +246,9 @@ class YellowDotLayers {
     this.numLayers = numLayers;
     this.numDots = numDots;
   }
+
+
+
 
   display() {
     let x = width * this.bigCircle.xScale;
